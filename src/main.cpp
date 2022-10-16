@@ -1,38 +1,31 @@
 /*
-面向对象的电灯程序
+面向对象的点灯程序
 by chenzy
 */
 #include <Arduino.h>
 #include "LED.h"
 
+void task(void *pt){
+  Led led = *(Led *)pt;
+
+  while(1){
+    led.toggle();
+    vTaskDelay(led.getDelayTime());//实际上传给函数的是tick的数量
+  }
+}
+
+Led led1(32,2000,"NO1");
+Led led2(33,1000,"NO2");
+Led led3(25,500,"NO3");
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  xTaskCreate(task,"NO 1",1024*6,&led1,1,NULL);
+  xTaskCreate(task,"NO 2",1024*6,&led2,1,NULL);
+  xTaskCreate(task,"NO 3",1024*6,&led3,1,NULL);
 
-  // led1.setPin(32);
-  // led2.setPin(33);
-  // led3.setPin(25);
-
-  Led led1(32,"1"),led2(33,"2"),led3(25,"3");
-
-  led1.on();
-  led2.on();
-  led3.on();
-  delay(1000);
-
-  led1.off();
-  led2.off();
-  led3.off();
-  delay(1000);
-  
  }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  // led1.toggle();
-  // led2.toggle();
-  // led3.toggle();
-  // Serial.print(sizeof(led1));//统计对象实际占用的byte数
-  // Serial.println(" Bytes");
-  // delay(100);
 }

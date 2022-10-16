@@ -7,7 +7,7 @@ Led::Led(){
   _color = "UNKOWN";
 }
 
-Led::Led(byte pin_parm,String color_param) : _color(color_param){
+Led::Led(byte pin_parm,int delayTime,String color_param) : _delayTime(delayTime),_color(color_param){
   setPin(pin_parm);
 }
 
