@@ -1,5 +1,16 @@
 #include "LED.h"
 
+Led::~Led(){}
+
+Led::Led(){
+  _pin = 2;
+  _color = "UNKOWN";
+}
+
+Led::Led(byte pin_parm,String color_param) : _color(color_param){
+  setPin(pin_parm);
+}
+
 void Led::setPin(byte pin_param){
 
   if ((pin_param < 40) && (pin_param >= 0))

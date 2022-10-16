@@ -11,13 +11,18 @@
 class Led{
   private://self and friend
    byte _pin;
-
+   String _color;
+   
   public:
-    void setPin(byte pin_param);
-    byte getPin() const;
-    void on() const;
-    void off() const;
-    void toggle() const;
+    Led();//默认的constructor(构造函数)
+    Led(byte pin_parm,String color_param="UNKOWN");//重载构造函数（overload constructor)
+    ~Led();//析构函数(destructor)
+    
+    void setPin(byte pin_param);//设置管脚
+    byte getPin() const;//获得管脚值
+    void on() const;//高电平
+    void off() const;//低电平
+    void toggle() const;//高低电平交替变化
 };
 
 #endif
