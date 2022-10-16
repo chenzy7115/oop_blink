@@ -41,3 +41,25 @@ void Led::off() const{
 void Led::toggle() const{
   digitalWrite(_pin,!digitalRead(_pin));
 }
+
+void Led::task(){
+  while (1)
+  {
+    this->toggle();
+    vTaskDelay(this->_delayTime);
+  }
+}
+
+  //下面的函数封装任务到类中的关键函数
+  void Led::startTaskImpl(void* _this) {
+  static_cast<Led*>(_this)->task();
+}
+
+  void Led::openLed(){
+  xTaskCreate(this->startTaskImpl,"Task",2048,this,5,&_taskHandle);
+}
+
+  void Led::closeLed(){
+  this->on();
+  vTaskDelete(_taskHandle);
+}
